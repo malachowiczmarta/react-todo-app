@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getTodos, deleteTodos, addTodo } from "./Requests";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import Button from "./Components/UI/Button/Button";
+import Input from "./Components/UI/Input/Input";
 
 function App() {
   const [todos, updateTodos] = useState([]);
-  const [newInputValue, setNewInputValue] = useState("");
+  const [titleValidationLabel, setTitleValidationLabel] = useState("");
 
   useEffect(() => {
     getAndRenderTodos();
@@ -25,40 +26,62 @@ function App() {
 
   const addNewTask = (event) => {
     event.preventDefault();
-    console.log(newInputValue);
-    let task = {
-      title: newInputValue,
-      id: 1,
-      description: "marta",
-      priority: null,
-      author: null,
-      extra: null,
-      url: "",
-      parent_todo_id: null,
+    //wyciągnięcie z event.target elements i nazwanie go inputs - są tu obie wartości z obu inputów
+    const { elements: inputs } = event.target;
+
+    // walidacja długości wprowadzonego tytułu
+    if (inputs[0].value.length < 5) {
+      setTitleValidationLabel("wprowadz dłuższy tytuł!");
+      return;
+    }
+
+    //tworzymy obiekt task który będziemy wysyłać
+    const todo = {
+      title: inputs[0].value,
+      description: inputs[1].value,
     };
+    addTodo(todo).then(() => {
+      getAndRenderTodos();
+    });
 
-    console.log(task);
-
-    addTodo(task);
-    getAndRenderTodos();
+    // na końcu czyścimy input
+    for (const input of inputs) {
+      input.value = "";
+    }
   };
 
   return (
     <main>
       <div className="container">
         <h1>To do</h1>
-        <form>
-          <label htmlFor="taskTitle">wpisz co chcesz</label>
-          <input
-            onChange={(event) => {
-              setNewInputValue(event.target.value);
-            }}
-            type="text"
+        <form onSubmit={addNewTask}>
+          <Input
+            label="Tytuł zadania:"
             id="taskTitle"
-          ></input>
-          <button onClick={addNewTask} type="submit">
-            Dodaj
-          </button>
+            name="taskTitle"
+            type="text"
+            placeholder="Dom"
+            validationError={titleValidationLabel}
+          ></Input>
+
+          <Input
+            label="Opis zadania"
+            id="taskDescription"
+            name="taskDescription"
+            type="text"
+            placeholder="posprzatac lazienke"
+            validationError={titleValidationLabel}
+          ></Input>
+
+          <Button
+            label="Dodaj nowy"
+            type="submit"
+            callbackFn={() => {
+              console.log("kliknieto add");
+            }}
+            size={2}
+            variant="add"
+          />
         </form>
         <h1>Twoja lista zadań:</h1>
         {todos.map((todo) => {
@@ -66,14 +89,16 @@ function App() {
             <div className="todo" key={todo.id}>
               <h2>{todo.title}</h2>
               <p>{todo.description}</p>
-              <button
-                onClick={() => {
+
+              <Button
+                label="Usuń"
+                type="delete"
+                callbackFn={() => {
                   onDelete(todo.id);
                 }}
-                className="btn btn-danger"
-              >
-                Usuń
-              </button>
+                size={2}
+                variant="delete"
+              />
             </div>
           );
         })}

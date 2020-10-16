@@ -1,0 +1,14 @@
+.label {
+  font-size: 10px;
+  font-weight: 300;
+  color: black;
+  display: block;
+}
+
+.input {
+  display: block;
+}
+
+.label-error {
+  color: var(--red);
+}
