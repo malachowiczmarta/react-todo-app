@@ -2,24 +2,39 @@ import React from "react";
 import "./Button.css";
 
 function Button({ label, type, callbackFn, size, variant }) {
-  let btnClassName = "btn";
+  let color;
+  let paddingY;
+  let paddingX;
 
   if (size === 2) {
-    btnClassName = btnClassName + " btn-large";
+    paddingY = 2;
+    paddingX = 4;
   } else if (size === 3) {
-    btnClassName = btnClassName + " btn-xlarge";
+    paddingY = 3;
+    paddingX = 5;
   }
 
   if (variant === "delete") {
-    btnClassName = btnClassName + " btn-delete";
+    color = "red";
   } else if (variant === "add") {
-    btnClassName = btnClassName + " btn-add";
+    color = "green";
+  } else if (variant === "edit") {
+    color = "blue";
   }
 
   return (
-    <button className={btnClassName} type={type} onClick={callbackFn}>
-      {label}
-    </button>
+    <div className="md:flex md:items-center">
+      <div className="md:w-1/3"></div>
+      <div className="md:w-2/3">
+        <button
+          className={`shadow bg-${color}-500 hover:bg-${color}-400 focus:shadow-outline focus:outline-none text-white font-bold py-${paddingY} px-${paddingX} rounded-full`}
+          type={type}
+          onClick={callbackFn}
+        >
+          {label}
+        </button>
+      </div>
+    </div>
   );
 }
 

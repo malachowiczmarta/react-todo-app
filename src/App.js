@@ -52,9 +52,9 @@ function App() {
 
   return (
     <main>
-      <div className="container">
+      <div className="sm:container sm:mx-auto">
         <h1>To do</h1>
-        <form onSubmit={addNewTask}>
+        <form onSubmit={addNewTask} className="w-full">
           <Input
             label="Tytuł zadania:"
             id="taskTitle"
@@ -79,16 +79,21 @@ function App() {
             callbackFn={() => {
               console.log("kliknieto add");
             }}
-            size={2}
+            size={3}
             variant="add"
           />
         </form>
-        <h1>Twoja lista zadań:</h1>
+        {/* <h1>Twoja lista zadań:</h1> */}
         {todos.map((todo) => {
           return (
-            <div className="todo" key={todo.id}>
-              <h2>{todo.title}</h2>
-              <p>{todo.description}</p>
+            <div
+              className="flex bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 m-4 text-gray-700 leading-tight focus:outline-none"
+              key={todo.id}
+            >
+              <div className="flex-1">
+                <h2>{todo.title}</h2>
+                <p>{todo.description}</p>
+              </div>
 
               <Button
                 label="Usuń"
@@ -99,6 +104,7 @@ function App() {
                 size={2}
                 variant="delete"
               />
+              <Button label="Edytuj" type="edit" size={2} variant="edit" />
             </div>
           );
         })}
