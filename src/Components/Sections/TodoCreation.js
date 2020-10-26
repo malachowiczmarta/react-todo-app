@@ -23,6 +23,13 @@ function TodoCreation({ addNewTask }) {
     let newTodoPrio = inputs[3].value;
     let newTodoUrl = inputs[4].value;
 
+    if (newTodoAuthor.length < 3) {
+      setauthorValidationLabel("Podaj autora! (min 3 znaki)");
+      isFormInvalid = true;
+    } else {
+      setauthorValidationLabel("");
+    }
+
     if (newTodoTitle.length < 5) {
       setTitleValidationLabel("wprowadz dłuższy tytuł! (min 5 znaków)");
       isFormInvalid = true;
@@ -36,6 +43,7 @@ function TodoCreation({ addNewTask }) {
     } else {
       setDescValidationLabel("");
     }
+
     if (isFormInvalid) return;
 
     //tworzymy obiekt task który będziemy wysyłać
@@ -88,14 +96,14 @@ function TodoCreation({ addNewTask }) {
           validationError={descValidationLabel}
         ></Input>
 
-        <Input
+        {/* <Input
           label="Link:"
           id="taskUrl"
           name="taskUrl"
           type="text"
           placeholder="https://..."
           validationError={urlValidationLabel}
-        ></Input>
+        ></Input> */}
 
         <Select label="Priorytet zadania:" id="taskPriority" />
 

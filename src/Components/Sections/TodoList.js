@@ -14,7 +14,7 @@ function TodoList({ todos, onTodoDelete }) {
             key={todo.id}
           >
             <Button
-              label={<i class="fas fa-check"></i>}
+              label={<i className="fas fa-check"></i>}
               type="check"
               variant="check"
               priority={todo.priority}
@@ -22,7 +22,8 @@ function TodoList({ todos, onTodoDelete }) {
 
             <div className="flex-1">
               <h2 className={"font-semibold"}>{todo.title}</h2>
-              <p>{todo.description}</p>
+              <p>Opis: {todo.description}</p>
+              <p>Autor: {todo.author}</p>
             </div>
 
             <div className="flex justify-between w-12">
@@ -36,7 +37,7 @@ function TodoList({ todos, onTodoDelete }) {
               />
 
               <Button
-                label={<i class="fas fa-edit"></i>}
+                label={<i className="fas fa-edit"></i>}
                 callbackFn={() => {
                   // onEdit(todo, todo.id);
                 }}
