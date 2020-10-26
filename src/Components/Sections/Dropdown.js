@@ -3,16 +3,15 @@ import React, { useState } from "react";
 function Dropdown({ desc, author, url }) {
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen(!open);
-  Dropdown.handleClickOutside = () => setOpen(false);
 
   return (
     <div>
       <div role="button" onClick={() => toggle(!open)}>
         <div className="cursor-pointer text-center">
           {open ? (
-            <span>{<i class="fas fa-sort-up"></i>}</span>
+            <span>{<i className="fas fa-sort-up"></i>}</span>
           ) : (
-            <span>{<i class="fas fa-sort-down"></i>}</span>
+            <span>{<i className="fas fa-sort-down"></i>}</span>
           )}
         </div>
       </div>
@@ -20,7 +19,12 @@ function Dropdown({ desc, author, url }) {
         <div>
           <p>Opis: {desc}</p>
           <p>Autor: {author}</p>
-          <p>Link: {url}</p>
+          <p>
+            Link:{" "}
+            <a href={url} target="_blank">
+              {url}
+            </a>
+          </p>
         </div>
       )}
     </div>
