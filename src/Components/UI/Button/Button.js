@@ -1,40 +1,29 @@
 import React from "react";
 import "./Button.css";
 
-function Button({ label, type, callbackFn, size, variant }) {
-  let color;
-  let paddingY;
-  let paddingX;
+function Button({ label, type, callbackFn, variant, priority }) {
+  let style;
 
-  if (size === 2) {
-    paddingY = 2;
-    paddingX = 4;
-  } else if (size === 3) {
-    paddingY = 3;
-    paddingX = 5;
+  if (variant === "delete" || variant === "edit" || variant === "check") {
+    style =
+      "bg-transparent rounded-full p-0 w-10 h-10 hover:bg-black mouse transition ease-in duration-200 focus:outline-none";
+  } else if (variant === "add") {
+    style =
+      "bg-green-400 box-border py-3 w-full rounded hover:bg-green-600 mouse transition ease-in duration-200 focus:outline-none";
   }
 
-  if (variant === "delete") {
-    color = "red";
-  } else if (variant === "add") {
-    color = "green";
-  } else if (variant === "edit") {
-    color = "blue";
+  if (priority === 1) {
+    style = style + " mr-2 box-border border-4 border-red-300";
+  } else if (priority === 2) {
+    style = style + " mr-2 box-border border-4 border-purple-300";
+  } else if (priority === 3) {
+    style = style + " mr-2 box-border border-4 border-blue-300";
   }
 
   return (
-    <div className="md:flex md:items-center">
-      <div className="md:w-1/3"></div>
-      <div className="md:w-2/3">
-        <button
-          className={`shadow bg-${color}-500 hover:bg-${color}-400 focus:shadow-outline focus:outline-none text-white font-bold py-${paddingY} px-${paddingX} rounded-full`}
-          type={type}
-          onClick={callbackFn}
-        >
-          {label}
-        </button>
-      </div>
-    </div>
+    <button className={style} type={type} onClick={callbackFn}>
+      {label}
+    </button>
   );
 }
 

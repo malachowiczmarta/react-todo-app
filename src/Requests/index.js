@@ -11,3 +11,7 @@ export const deleteTodos = (id) => {
 export const addTodo = (task) => {
   return axios.post("http://51.75.120.145:3000/todo", task);
 };
+
+export const editTodo = (id, task) => {
+  return axios.put(`http://51.75.120.145:3000/todo/${id}`, task);
+};
