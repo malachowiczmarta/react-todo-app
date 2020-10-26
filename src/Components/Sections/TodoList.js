@@ -24,6 +24,7 @@ function TodoList({ todos, onTodoDelete }) {
               <h2 className={"font-semibold"}>{todo.title}</h2>
               <p>Opis: {todo.description}</p>
               <p>Autor: {todo.author}</p>
+              <p>Link: {todo.url}</p>
             </div>
 
             <div className="flex justify-between w-12">

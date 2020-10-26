@@ -20,8 +20,11 @@ function TodoCreation({ addNewTask }) {
     let newTodoAuthor = inputs[0].value;
     let newTodoTitle = inputs[1].value;
     let newTodoDesc = inputs[2].value;
-    let newTodoPrio = inputs[3].value;
-    let newTodoUrl = inputs[4].value;
+    let newTodoUrl = inputs[3].value;
+    let newTodoPrio = inputs[4].value;
+
+    let expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    let regex = new RegExp(expression);
 
     if (newTodoAuthor.length < 3) {
       setauthorValidationLabel("Podaj autora! (min 3 znaki)");
@@ -42,6 +45,13 @@ function TodoCreation({ addNewTask }) {
       isFormInvalid = true;
     } else {
       setDescValidationLabel("");
+    }
+
+    if (!newTodoUrl.match(regex)) {
+      setUrlValidationLabel("wprowadź poprawnie adres url");
+      isFormInvalid = true;
+    } else {
+      setUrlValidationLabel("");
     }
 
     if (isFormInvalid) return;
@@ -96,14 +106,14 @@ function TodoCreation({ addNewTask }) {
           validationError={descValidationLabel}
         ></Input>
 
-        {/* <Input
+        <Input
           label="Link:"
           id="taskUrl"
           name="taskUrl"
           type="text"
           placeholder="https://..."
           validationError={urlValidationLabel}
-        ></Input> */}
+        ></Input>
 
         <Select label="Priorytet zadania:" id="taskPriority" />
 
