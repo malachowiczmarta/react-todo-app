@@ -13,22 +13,37 @@ function App() {
   }, []);
 
   const getAndRenderTodos = () => {
-    getTodos().then((response) => {
-      const { data } = response;
-      updateTodos(data);
-    });
+    getTodos()
+      .then((response) => {
+        const { data } = response;
+        updateTodos(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setRequestStatus(true);
+      });
   };
 
   const onTodoDelete = (id) => {
-    deleteTodos(id).then(() => {
-      getAndRenderTodos();
-    });
+    deleteTodos(id)
+      .then(() => {
+        getAndRenderTodos();
+      })
+      .catch((error) => {
+        console.log(error);
+        setRequestStatus(true);
+      });
   };
 
   const addNewTask = (todo) => {
-    addTodo(todo).then(() => {
-      getAndRenderTodos();
-    });
+    addTodo(todo)
+      .then(() => {
+        getAndRenderTodos();
+      })
+      .catch((error) => {
+        console.log(error);
+        setRequestStatus(true);
+      });
   };
 
   return (
