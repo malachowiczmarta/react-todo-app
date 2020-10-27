@@ -21,7 +21,7 @@ function Dropdown({ desc, author, url }) {
           <p>Autor: {author}</p>
           <p>
             Link:{" "}
-            <a href={url} target="_blank">
+            <a href={url} target="_blank" rel="noopener noreferrer">
               {url}
             </a>
           </p>

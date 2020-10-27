@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getTodos, deleteTodos, addTodo } from "./Requests";
+import { getTodos, deleteTodos, addTodo, editTodo } from "./Requests";
 import "./App.css";
 import TodoList from "./Components/Sections/TodoList";
 import TodoCreation from "./Components/Sections/TodoCreation";
@@ -35,6 +35,26 @@ function App() {
       });
   };
 
+  const onTodoToggle = (todo) => {
+    // jeśli mamy parametr do funkcji to nie powinniśmy go zmieniać, zmieniamy na stringa a potem parsujemy więc go klonujemy
+    let todoEdited = JSON.parse(JSON.stringify(todo));
+
+    if (!todoEdited.extra) {
+      todoEdited.extra = 1;
+    } else {
+      todoEdited.extra = null;
+    }
+
+    editTodo(todo.id, todoEdited)
+      .then(() => {
+        getAndRenderTodos();
+      })
+      .catch((error) => {
+        console.log(error);
+        setRequestStatus(true);
+      });
+  };
+
   const addNewTask = (todo) => {
     addTodo(todo)
       .then(() => {
@@ -57,7 +77,11 @@ function App() {
           <div className="container lg:flex">
             <TodoCreation addNewTask={addNewTask} />
 
-            <TodoList todos={todos} onTodoDelete={onTodoDelete} />
+            <TodoList
+              todos={todos}
+              onTodoDelete={onTodoDelete}
+              onTodoToggle={onTodoToggle}
+            />
           </div>
         )}
       </div>
