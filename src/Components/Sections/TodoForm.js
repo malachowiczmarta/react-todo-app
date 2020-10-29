@@ -3,7 +3,7 @@ import Button from "../UI/Button/Button";
 import Input from "../UI/Input/Input";
 import Select from "../UI/Select";
 
-function TodoCreation({ addNewTask }) {
+function TodoForm({ onFormSubmitCallBack, isFormEdited, todo = {} }) {
   const [authorValidationLabel, setauthorValidationLabel] = useState("");
   const [titleValidationLabel, setTitleValidationLabel] = useState("");
   const [descValidationLabel, setDescValidationLabel] = useState("");
@@ -57,7 +57,7 @@ function TodoCreation({ addNewTask }) {
     if (isFormInvalid) return;
 
     //tworzymy obiekt task który będziemy wysyłać
-    const todo = {
+    const todoObject = {
       author: newTodoAuthor,
       title: newTodoTitle,
       description: newTodoDesc,
@@ -65,7 +65,11 @@ function TodoCreation({ addNewTask }) {
       url: newTodoUrl,
     };
 
-    addNewTask(todo);
+    if (isFormEdited) {
+      todoObject.id = todo.id;
+    }
+
+    onFormSubmitCallBack(todoObject);
     // na końcu czyścimy input i alerty
     for (const input of inputs) {
       input.value = "";
@@ -73,8 +77,10 @@ function TodoCreation({ addNewTask }) {
   };
 
   return (
-    <section className="container w-full lg:w-1/2 lg:p-4">
-      <h2 className="text-gray-600 font-bold text-xl">Stwórz zadanie:</h2>
+    <section className="container bg-white border-2 rounded border-gray-300 w-full lg:w-1/2 lg:p-4">
+      <h2 className="text-gray-600 font-bold text-xl">
+        {isFormEdited ? "Edytuj zadanie:" : "Stwórz zadanie:"}
+      </h2>
       <form
         onSubmit={onFormSubmit}
         className="flex-col justify-center w-full py-5"
@@ -85,6 +91,7 @@ function TodoCreation({ addNewTask }) {
           name="taskAuthor"
           type="text"
           placeholder="Marta"
+          value={todo.author}
           validationError={authorValidationLabel}
         ></Input>
 
@@ -94,6 +101,7 @@ function TodoCreation({ addNewTask }) {
           name="taskTitle"
           type="text"
           placeholder="Dom"
+          value={todo.title}
           validationError={titleValidationLabel}
         ></Input>
 
@@ -103,6 +111,7 @@ function TodoCreation({ addNewTask }) {
           name="taskDescription"
           type="text"
           placeholder="posprzatac lazienke"
+          value={todo.description}
           validationError={descValidationLabel}
         ></Input>
 
@@ -112,15 +121,24 @@ function TodoCreation({ addNewTask }) {
           name="taskUrl"
           type="text"
           placeholder="https://..."
+          value={todo.url}
           validationError={urlValidationLabel}
         ></Input>
 
-        <Select label="Priorytet zadania:" id="taskPriority" />
+        <Select
+          label="Priorytet zadania:"
+          id="taskPriority"
+          value={todo.priority}
+        />
 
-        <Button label="Dodaj nowy" type="submit" size={3} variant="add" />
+        <Button
+          label={isFormEdited ? "Zapisz" : "Dodaj"}
+          type="submit"
+          variant="add"
+        />
       </form>
     </section>
   );
 }
 
-export default TodoCreation;
+export default TodoForm;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Input.css";
 
 function Input({
@@ -6,9 +6,12 @@ function Input({
   id,
   name,
   type = "text",
+  value = "",
   placeholder,
   validationError,
 }) {
+  // const [inputValue, updateValue] = useState(value);
+
   return (
     <div className="flex items-center mb-6">
       <div className="w-1/5">
@@ -27,7 +30,11 @@ function Input({
           placeholder={placeholder}
           type={type}
           id={id}
-        ></input>
+          defaultValue={value}
+          // onChange={(event) => {
+          //   updateValue(event.target.value);
+          // }}
+        />
         {validationError && (
           <p className="label label-error">{validationError}</p>
         )}

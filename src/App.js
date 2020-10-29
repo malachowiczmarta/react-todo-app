@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { getTodos, deleteTodos, addTodo, editTodo } from "./Requests";
 import "./App.css";
 import TodoList from "./Components/Sections/TodoList";
-import TodoCreation from "./Components/Sections/TodoCreation";
+import TodoForm from "./Components/Sections/TodoForm";
+import Modal from "./Components/UI/Modal/Modal";
 
 function App() {
   const [todos, updateTodos] = useState([]);
+  const [editedTodo, setEditedTodo] = useState(false);
   const [didRequestFail, setRequestStatus] = useState(false);
 
   useEffect(() => {
@@ -35,6 +37,22 @@ function App() {
       });
   };
 
+  const onTaskEdit = (todo) => {
+    editTodo(todo)
+      .then(() => {
+        getAndRenderTodos();
+        setEditedTodo(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setRequestStatus(true);
+      });
+  };
+
+  const openEditModal = (todo) => {
+    setEditedTodo(todo);
+  };
+
   const onTodoToggle = (todo) => {
     // jeśli mamy parametr do funkcji to nie powinniśmy go zmieniać, zmieniamy na stringa a potem parsujemy więc go klonujemy
     let todoEdited = JSON.parse(JSON.stringify(todo));
@@ -45,7 +63,7 @@ function App() {
       todoEdited.extra = null;
     }
 
-    editTodo(todo.id, todoEdited)
+    editTodo(todoEdited)
       .then(() => {
         getAndRenderTodos();
       })
@@ -55,7 +73,7 @@ function App() {
       });
   };
 
-  const addNewTask = (todo) => {
+  const onNewTaskAdd = (todo) => {
     addTodo(todo)
       .then(() => {
         getAndRenderTodos();
@@ -69,22 +87,32 @@ function App() {
   return (
     <main>
       <div className="container w-11/12 md:w-3/5 lg:w-4/5 mx-auto">
-        <h1 className="text-center py-8 text-4xl font-bold">To do</h1>
+        <h1 className="text-center py-12 text-4xl font-bold">To do</h1>
         {didRequestFail && (
           <p>Nie udało się pobrać danych. Spróbuj ponownie.</p>
         )}
         {!didRequestFail && (
-          <div className="container lg:flex">
-            <TodoCreation addNewTask={addNewTask} />
+          <div className="container lg:flex lg:justify-between">
+            <TodoForm onFormSubmitCallBack={onNewTaskAdd} />
 
             <TodoList
               todos={todos}
               onTodoDelete={onTodoDelete}
               onTodoToggle={onTodoToggle}
+              onTodoEdit={openEditModal}
             />
           </div>
         )}
       </div>
+      {editedTodo && (
+        <Modal>
+          <TodoForm
+            onFormSubmitCallBack={onTaskEdit}
+            isFormEdited
+            todo={editedTodo}
+          />
+        </Modal>
+      )}
     </main>
   );
 }

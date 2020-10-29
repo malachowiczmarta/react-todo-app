@@ -12,7 +12,7 @@ const tasksComparator = (a, b) => {
   }
 };
 
-function TodoList({ todos, onTodoDelete, onTodoToggle }) {
+function TodoList({ todos, onTodoDelete, onTodoToggle, onTodoEdit }) {
   return (
     <section className="container w-full lg:w-1/2 lg:p-4">
       <h2 className="mb-5 text-gray-600 font-bold text-xl">
@@ -63,7 +63,7 @@ function TodoList({ todos, onTodoDelete, onTodoToggle }) {
               <Button
                 label={<i className="fas fa-edit"></i>}
                 callbackFn={() => {
-                  // onEdit(todo, todo.id);
+                  onTodoEdit(todo);
                 }}
                 type="edit"
                 variant="edit"
