@@ -5,6 +5,7 @@ import "./App.css";
 import TodoList from "./Components/Sections/TodoList/TodoList";
 import TodoForm from "./Components/Sections/TodoForm/TodoForm";
 import Modal from "./Components/UI/Modal/Modal";
+import Button from "./Components/UI/Button/Button";
 
 function App() {
   const [todos, updateTodos] = useState([]);
@@ -92,30 +93,49 @@ function App() {
   return (
     <Router>
       <main>
-        <div className="container w-11/12 md:w-3/5 lg:w-4/5 mx-auto">
+        <div className="container w-11/12 md:w-3/5 lg:w-7/12 xl:w-2/5 mx-auto">
           <h1 className="text-center py-12 text-4xl font-bold">To do</h1>
-          {didRequestFail && (
-            <p>Nie udało się pobrać danych. Spróbuj ponownie.</p>
-          )}
-          {!didRequestFail && (
-            <div className="container lg:flex lg:justify-between">
-              <TodoForm onFormSubmitCallBack={onNewTaskAdd} />
-
-              <TodoList
-                todos={todos}
-                onTodoDelete={onTodoDelete}
-                onTodoToggle={onTodoToggle}
-                onTodoEdit={openEditModal}
-              />
-            </div>
-          )}
         </div>
+        {didRequestFail && (
+          <div className="bg-white h-screen w-screen flex items-center justify-center">
+            <p>Nie udało się pobrać danych. Spróbuj ponownie.</p>
+          </div>
+        )}
+        {!didRequestFail && (
+          <Switch>
+            <Route exact path="/">
+              <div className="container w-11/12 md:w-3/5 lg:w-7/12 xl:w-2/5 mx-auto">
+                <Link to="/create">
+                  <Button
+                    label="Stwórz nowe zadanie"
+                    type="button"
+                    variant="add"
+                  />
+                </Link>
+
+                <TodoList
+                  todos={todos}
+                  onTodoDelete={onTodoDelete}
+                  onTodoToggle={onTodoToggle}
+                  onTodoEdit={openEditModal}
+                />
+              </div>
+            </Route>
+
+            <Route path="/create">
+              <div className="bg-white w-screen flex items-center justify-center">
+                <TodoForm onFormSubmitCallBack={onNewTaskAdd} />
+              </div>
+            </Route>
+          </Switch>
+        )}
+
         {editedTodo && (
           <Modal>
             <TodoForm
               onFormSubmitCallBack={onTaskEdit}
               isFormEdited
-              close={closeEditModal}
+              onCloseEdit={closeEditModal}
               todo={editedTodo}
             />
           </Modal>

@@ -14,7 +14,7 @@ const tasksComparator = (a, b) => {
 
 function TodoList({ todos, onTodoDelete, onTodoToggle, onTodoEdit }) {
   return (
-    <section className="container w-full lg:w-1/2 lg:p-4">
+    <section className="container w-full">
       <h2 className="mb-5 text-gray-600 font-bold text-xl">
         Twoja lista zadań:
       </h2>

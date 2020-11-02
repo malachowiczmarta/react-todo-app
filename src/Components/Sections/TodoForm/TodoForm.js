@@ -1,9 +1,17 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import Button from "../../UI/Button/Button";
 import Input from "../../UI/Input/Input";
 import Select from "../../UI/Select/Select";
 
-function TodoForm({ onFormSubmitCallBack, isFormEdited, close, todo = {} }) {
+function TodoForm({
+  onFormSubmitCallBack,
+  isFormEdited,
+  onCloseEdit,
+  todo = {},
+}) {
+  const history = useHistory();
   const [authorValidationLabel, setauthorValidationLabel] = useState("");
   const [titleValidationLabel, setTitleValidationLabel] = useState("");
   const [descValidationLabel, setDescValidationLabel] = useState("");
@@ -74,10 +82,14 @@ function TodoForm({ onFormSubmitCallBack, isFormEdited, close, todo = {} }) {
     for (const input of inputs) {
       input.value = "";
     }
+
+    history.push({
+      pathname: "/",
+    });
   };
 
   return (
-    <section className="container bg-white border-2 rounded border-gray-300 w-full lg:w-1/2 lg:p-4">
+    <section className="container bg-white border-2 rounded border-gray-300 w-11/12 md:w-3/5 lg:w-7/12 xl:w-2/5 p-4 mx-auto">
       <h2 className="text-gray-600 font-bold text-xl">
         {isFormEdited ? "Edytuj zadanie:" : "Stwórz zadanie:"}
       </h2>
@@ -136,13 +148,16 @@ function TodoForm({ onFormSubmitCallBack, isFormEdited, close, todo = {} }) {
           type="submit"
           variant="add"
         />
+
         {isFormEdited && (
-          <Button
-            label="Anuluj"
-            type="reset"
-            variant="cancel"
-            callbackFn={close}
-          />
+          <Link to="/">
+            <Button
+              label="Anuluj"
+              type="reset"
+              variant="cancel"
+              callbackFn={onCloseEdit}
+            />
+          </Link>
         )}
       </form>
     </section>
