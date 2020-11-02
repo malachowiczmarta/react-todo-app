@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../UI/Button/Button";
-import Dropdown from "./Dropdown";
+import Button from "../../UI/Button/Button";
+import Dropdown from "../Dropdown/Dropdown";
 
 const tasksComparator = (a, b) => {
   const doneSort = a.extra - b.extra;

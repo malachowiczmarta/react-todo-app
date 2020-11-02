@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Button from "../UI/Button/Button";
-import Input from "../UI/Input/Input";
-import Select from "../UI/Select";
+import Button from "../../UI/Button/Button";
+import Input from "../../UI/Input/Input";
+import Select from "../../UI/Select/Select";
 
-function TodoForm({ onFormSubmitCallBack, isFormEdited, todo = {} }) {
+function TodoForm({ onFormSubmitCallBack, isFormEdited, close, todo = {} }) {
   const [authorValidationLabel, setauthorValidationLabel] = useState("");
   const [titleValidationLabel, setTitleValidationLabel] = useState("");
   const [descValidationLabel, setDescValidationLabel] = useState("");
@@ -136,6 +136,14 @@ function TodoForm({ onFormSubmitCallBack, isFormEdited, todo = {} }) {
           type="submit"
           variant="add"
         />
+        {isFormEdited && (
+          <Button
+            label="Anuluj"
+            type="reset"
+            variant="cancel"
+            callbackFn={close}
+          />
+        )}
       </form>
     </section>
   );

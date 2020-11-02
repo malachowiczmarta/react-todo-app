@@ -2,14 +2,19 @@ import React from "react";
 import "./Button.css";
 
 function Button({ label, type, callbackFn, variant, priority }) {
-  let style;
+  let style = "mouse transition ease-in duration-200 focus:outline-none ";
 
   if (variant === "delete" || variant === "edit" || variant === "check") {
     style =
-      "bg-transparent rounded-full p-0 w-10 h-10 hover:bg-black mouse transition ease-in duration-200 focus:outline-none";
+      style + "bg-transparent rounded-full p-0 w-10 h-10 hover:bg-gray-300";
   } else if (variant === "add") {
     style =
-      "bg-green-400 box-border py-3 w-full rounded hover:bg-green-600 mouse transition ease-in duration-200 focus:outline-none";
+      style +
+      "bg-green-400 box-border py-3 w-full mb-4 rounded hover:bg-green-600";
+  } else if (variant === "cancel") {
+    style =
+      style +
+      "bg-orange-400 box-border py-3 w-full mb-4 rounded hover:bg-orange-600";
   }
 
   if (priority === 1) {
