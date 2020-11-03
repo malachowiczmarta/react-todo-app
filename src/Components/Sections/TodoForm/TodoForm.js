@@ -43,70 +43,96 @@ function TodoForm({
     let expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     let regex = new RegExp(expression);
 
-    if (newTodoAuthor.length < 3) {
+    const setForm = (item, text) => {
       setFormState((prevState) => {
-        return {
+        const newState = {
           ...prevState,
-          authorValidationLabel: "Podaj autora! (min 3 znaki)",
         };
+
+        newState[item] = text;
+
+        return newState;
       });
+    };
+
+    if (newTodoAuthor.length < 3) {
+      setForm("authorValidationLabel", "Podaj autora! (min 3 znaki)");
+
+      // setFormState((prevState) => {
+      //   return {
+      //     ...prevState,
+      //     authorValidationLabel: "Podaj autora! (min 3 znaki)",
+      //   };
+      // });
       isFormInvalid = true;
     } else {
-      setFormState((prevState) => {
-        return {
-          ...prevState,
-          authorValidationLabel: "",
-        };
-      });
+      setForm("authorValidationLabel", "");
+
+      // setFormState((prevState) => {
+      //   return {
+      //     ...prevState,
+      //     authorValidationLabel: "",
+      //   };
+      // });
     }
 
     if (newTodoTitle.length < 5) {
-      setFormState((prevState) => {
-        return {
-          ...prevState,
-          titleValidationLabel: "wprowadz dłuższy tytuł! (min 5 znaków)",
-        };
-      });
-      console.log(titleValidationLabel);
+      setForm("titleValidationLabel", "Wprowadź dłuższy tytuł! (min 5 znaków)");
+
+      // setFormState((prevState) => {
+      //   return {
+      //     ...prevState,
+      //     titleValidationLabel: "wprowadz dłuższy tytuł! (min 5 znaków)",
+      //   };
+      // });
+
       isFormInvalid = true;
     } else {
-      setFormState((prevState) => {
-        return { ...prevState, titleValidationLabel: "" };
-      });
+      setForm("titleValidationLabel", "");
+      // setFormState((prevState) => {
+      //   return { ...prevState, titleValidationLabel: "" };
+      // });
     }
 
     if (newTodoDesc.length < 5) {
-      setFormState((prevState) => {
-        return {
-          ...prevState,
-          descValidationLabel: "wprowadz dłuższy opis! (min 5 znaków)",
-        };
-      });
+      setForm("descValidationLabel", "Wprowadz dłuższy opis! (min 5 znaków)");
+
+      // setFormState((prevState) => {
+      //   return {
+      //     ...prevState,
+      //     descValidationLabel: "wprowadz dłuższy opis! (min 5 znaków)",
+      //   };
+      // });
       isFormInvalid = true;
     } else {
-      setFormState((prevState) => {
-        return {
-          ...prevState,
-          descValidationLabel: "",
-        };
-      });
+      setForm("descValidationLabel", "");
+      // setFormState((prevState) => {
+      //   return {
+      //     ...prevState,
+      //     descValidationLabel: "",
+      //   };
+      // });
     }
 
     if (!newTodoUrl.match(regex)) {
-      setFormState((prevState) => {
-        return {
-          ...prevState,
-          urlValidationLabel: "wprowadź poprawnie adres url",
-        };
-      });
+      setForm("urlValidationLabel", "Wprowadź poprawnie adres url");
+
+      // setFormState((prevState) => {
+      //   return {
+      //     ...prevState,
+      //     urlValidationLabel: "wprowadź poprawnie adres url",
+      //   };
+      // });
       isFormInvalid = true;
     } else {
-      setFormState((prevState) => {
-        return {
-          ...prevState,
-          urlValidationLabel: "",
-        };
-      });
+      setForm("urlValidationLabel", "");
+
+      // setFormState((prevState) => {
+      //   return {
+      //     ...prevState,
+      //     urlValidationLabel: "",
+      //   };
+      // });
     }
 
     if (isFormInvalid) return;
