@@ -8,7 +8,7 @@ import Select from "../../UI/Select/Select";
 function TodoForm({
   onFormSubmitCallBack,
   isFormEdited,
-  onCloseEdit,
+  onCloseForm,
   todo = {},
 }) {
   const history = useHistory();
@@ -183,16 +183,14 @@ function TodoForm({
           variant="add"
         />
 
-        {isFormEdited && (
-          <Link to="/">
-            <Button
-              label="cancel"
-              type="reset"
-              variant="cancel"
-              callbackFn={onCloseEdit}
-            />
-          </Link>
-        )}
+        <Link to="/">
+          <Button
+            label="cancel"
+            type="reset"
+            variant="cancel"
+            callbackFn={onCloseForm}
+          />
+        </Link>
       </form>
     </section>
   );

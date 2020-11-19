@@ -130,7 +130,7 @@ function App() {
             <TodoForm
               onFormSubmitCallBack={onTaskEdit}
               isFormEdited
-              onCloseEdit={closeEditModal}
+              onCloseForm={closeEditModal}
               todo={editedTodo}
             />
           </Modal>
