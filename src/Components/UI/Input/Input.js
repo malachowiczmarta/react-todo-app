@@ -9,8 +9,6 @@ function Input({
   placeholder,
   validationError,
 }) {
-  // const [inputValue, updateValue] = useState(value);
-
   return (
     <div className="flex items-center mb-6">
       <div className="w-1/5">
@@ -30,9 +28,6 @@ function Input({
           type={type}
           id={id}
           defaultValue={value}
-          // onChange={(event) => {
-          //   updateValue(event.target.value);
-          // }}
         />
         {validationError && (
           <p className="label label-error">{validationError}</p>
