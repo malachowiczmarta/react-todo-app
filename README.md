@@ -8,12 +8,9 @@ In this application I was practis how to build React component, send a request t
 
 ## Screenshots
 
-> Create task form:
-> ![todo creation](./img/todo2.PNG)
-> Task list
-> ![todo list](./img/todo1.PNG)
-> Edit task
-> ![todo list](./img/todo3.PNG)
+![todo creation](./img/todo2.PNG)
+![todo list](./img/todo1.PNG)
+![todo list](./img/todo3.PNG)
 
 ## Technologies
 
