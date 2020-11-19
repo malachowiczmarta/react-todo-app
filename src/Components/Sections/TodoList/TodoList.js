@@ -15,9 +15,7 @@ const tasksComparator = (a, b) => {
 function TodoList({ todos, onTodoDelete, onTodoToggle, onTodoEdit }) {
   return (
     <section className="container w-full">
-      <h2 className="mb-5 text-gray-600 font-bold text-xl">
-        Twoja lista zadań:
-      </h2>
+      <h2 className="mb-5 text-gray-600 font-bold text-xl">Task list:</h2>
       {todos.sort(tasksComparator).map((todo) => {
         let todoClassName = "font-semibold";
 

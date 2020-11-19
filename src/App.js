@@ -60,7 +60,6 @@ function App() {
   };
 
   const onTodoToggle = (todo) => {
-    // jeśli mamy parametr do funkcji to nie powinniśmy go zmieniać, zmieniamy na stringa a potem parsujemy więc go klonujemy
     let todoEdited = JSON.parse(JSON.stringify(todo));
 
     if (!todoEdited.extra) {
@@ -98,7 +97,7 @@ function App() {
         </div>
         {didRequestFail && (
           <div className="bg-white h-screen w-screen flex items-center justify-center">
-            <p>Nie udało się pobrać danych. Spróbuj ponownie.</p>
+            <p>The data could not be retrieved. Try again.</p>
           </div>
         )}
         {!didRequestFail && (
@@ -106,11 +105,7 @@ function App() {
             <Route exact path="/">
               <div className="container w-11/12 md:w-3/5 lg:w-7/12 xl:w-2/5 mx-auto">
                 <Link to="/create">
-                  <Button
-                    label="Stwórz nowe zadanie"
-                    type="button"
-                    variant="add"
-                  />
+                  <Button label="Create new task" type="button" variant="add" />
                 </Link>
 
                 <TodoList

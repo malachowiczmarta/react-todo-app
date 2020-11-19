@@ -19,8 +19,8 @@ function Select({ label, id, value }) {
           defaultValue={value}
         >
           <option value="1">ASAP!!!</option>
-          <option value="2">spokojnie dziś to ogarnę</option>
-          <option value="3">co się odwlecze to nie uciecze</option>
+          <option value="2">Do it today</option>
+          <option value="3">When you have free time</option>
         </select>
       </div>
     </div>

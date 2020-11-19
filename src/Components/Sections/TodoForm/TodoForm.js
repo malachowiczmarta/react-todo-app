@@ -28,11 +28,9 @@ function TodoForm({
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-    //wyciągnięcie z event.target elements i nazwanie go inputs - są tu obie wartości z obu inputów
 
     const { elements: inputs } = event.target;
 
-    // walidacja długości wprowadzonego tytułu i opisu (musi byc return żeby błędnego valunie dało się submitować)
     let isFormInvalid = false;
     let newTodoAuthor = inputs[0].value;
     let newTodoTitle = inputs[1].value;
@@ -63,88 +61,44 @@ function TodoForm({
     };
 
     if (newTodoAuthor.length < 3) {
-      setForm("authorValidationLabel", "Podaj autora! (min 3 znaki)");
-
-      // setFormState((prevState) => {
-      //   return {
-      //     ...prevState,
-      //     authorValidationLabel: "Podaj autora! (min 3 znaki)",
-      //   };
-      // });
+      setForm(
+        "authorValidationLabel",
+        "Please enter the author! (at least 3 characters)"
+      );
       isFormInvalid = true;
     } else {
       setForm("authorValidationLabel", "");
-
-      // setFormState((prevState) => {
-      //   return {
-      //     ...prevState,
-      //     authorValidationLabel: "",
-      //   };
-      // });
     }
 
     if (newTodoTitle.length < 5) {
-      setForm("titleValidationLabel", "Wprowadź dłuższy tytuł! (min 5 znaków)");
-
-      // setFormState((prevState) => {
-      //   return {
-      //     ...prevState,
-      //     titleValidationLabel: "wprowadz dłuższy tytuł! (min 5 znaków)",
-      //   };
-      // });
-
+      setForm(
+        "titleValidationLabel",
+        "Please enter a longer title! (at least 5 characters)"
+      );
       isFormInvalid = true;
     } else {
       setForm("titleValidationLabel", "");
-      // setFormState((prevState) => {
-      //   return { ...prevState, titleValidationLabel: "" };
-      // });
     }
 
     if (newTodoDesc.length < 5) {
-      setForm("descValidationLabel", "Wprowadz dłuższy opis! (min 5 znaków)");
-
-      // setFormState((prevState) => {
-      //   return {
-      //     ...prevState,
-      //     descValidationLabel: "wprowadz dłuższy opis! (min 5 znaków)",
-      //   };
-      // });
+      setForm(
+        "descValidationLabel",
+        "Please enter a longer description! (at least 5 characters)"
+      );
       isFormInvalid = true;
     } else {
       setForm("descValidationLabel", "");
-      // setFormState((prevState) => {
-      //   return {
-      //     ...prevState,
-      //     descValidationLabel: "",
-      //   };
-      // });
     }
 
     if (!newTodoUrl.match(regex)) {
-      setForm("urlValidationLabel", "Wprowadź poprawnie adres url");
-
-      // setFormState((prevState) => {
-      //   return {
-      //     ...prevState,
-      //     urlValidationLabel: "wprowadź poprawnie adres url",
-      //   };
-      // });
+      setForm("urlValidationLabel", "Enter the url correctly");
       isFormInvalid = true;
     } else {
       setForm("urlValidationLabel", "");
-
-      // setFormState((prevState) => {
-      //   return {
-      //     ...prevState,
-      //     urlValidationLabel: "",
-      //   };
-      // });
     }
 
     if (isFormInvalid) return;
 
-    //tworzymy obiekt task który będziemy wysyłać
     const todoObject = {
       author: newTodoAuthor,
       title: newTodoTitle,
@@ -158,7 +112,7 @@ function TodoForm({
     }
 
     onFormSubmitCallBack(todoObject);
-    // na końcu czyścimy input i alerty
+
     for (const input of inputs) {
       input.value = "";
     }
@@ -171,38 +125,38 @@ function TodoForm({
   return (
     <section className="container bg-white border-2 rounded border-gray-300 w-11/12 md:w-3/5 lg:w-7/12 xl:w-2/5 p-4 mx-auto">
       <h2 className="text-gray-600 font-bold text-xl">
-        {isFormEdited ? "Edytuj zadanie:" : "Stwórz zadanie:"}
+        {isFormEdited ? "Edit task:" : "Create task:"}
       </h2>
       <form
         onSubmit={onFormSubmit}
         className="flex-col justify-center w-full py-5"
       >
         <Input
-          label="Autor:"
+          label="Author:"
           id="taskAuthor"
           name="taskAuthor"
           type="text"
-          placeholder="Marta"
+          placeholder="Ann"
           value={todo.author}
           validationError={authorValidationLabel}
         ></Input>
 
         <Input
-          label="Tytuł zadania:"
+          label="Task title:"
           id="taskTitle"
           name="taskTitle"
           type="text"
-          placeholder="Dom"
+          placeholder="Cleaning"
           value={todo.title}
           validationError={titleValidationLabel}
         ></Input>
 
         <Input
-          label="Opis zadania:"
+          label="Task description:"
           id="taskDescription"
           name="taskDescription"
           type="text"
-          placeholder="posprzatac lazienke"
+          placeholder="cleaning kitchen"
           value={todo.description}
           validationError={descValidationLabel}
         ></Input>
@@ -224,7 +178,7 @@ function TodoForm({
         />
 
         <Button
-          label={isFormEdited ? "Zapisz" : "Dodaj"}
+          label={isFormEdited ? "Save" : "Add"}
           type="submit"
           variant="add"
         />
@@ -232,7 +186,7 @@ function TodoForm({
         {isFormEdited && (
           <Link to="/">
             <Button
-              label="Anuluj"
+              label="cancel"
               type="reset"
               variant="cancel"
               callbackFn={onCloseEdit}
